@@ -8,26 +8,15 @@
 import SwiftUI
 import CoreData
 
-struct LoginBody: Codable {
-    let empid: Int;
-    let password: String;
+struct LoginResponseBody: Codable {
+    var status: Int?;
+    var response: String = "";
 }
 
-//struct LoginSubmit {
-//    @Binding var username: String;
-//    @Binding var password: String;
-//    private let loginRoute: URL;
-//    private let request: URLRequest;
-//
-//    init(userName: Binding<String>, passWord: Binding<String>) {
-//        self._username = userName;
-//        self._password = passWord;
-//        self.loginRoute = URL(string: "http://localhost:1995/Login")!;
-//        self.request = URLRequest(url: self.loginRoute);
-//    }
-//
-//    request
-//}
+struct LoginRequestBody: Codable {
+    var empid = 40005;
+    var password = "123";
+}
 
 func LoginSubmit() -> Void {
     let route: URL = URL(string: "http://localhost:1995/Login")!
@@ -48,7 +37,32 @@ func LoginSubmit() -> Void {
         }
     }
 
-    task.resume()
+    task.resume();
+}
+
+class Login: ObservableObject {
+    @Published var x: LoginResponseBody = LoginResponseBody();
+    
+    init() {
+        let route: URL = URL(string: "http://localhost:1995/Login")!
+        var request: URLRequest = URLRequest(url: route);
+        let requestBody: [String: Any] = ["empid": 40005, "password": "123"];
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type");
+        request.httpMethod = "POST";
+        request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print(responseJSON)
+//                self.x = responseJSON;
+            }
+        }.resume();
+    }
 }
 
 struct LoginForm: View {
@@ -78,8 +92,38 @@ struct LoginForm: View {
 }
 
 struct ContentView: View {
+//    @ObservedObject var fetch = Login();
+    @State private var x = LoginResponseBody();
     var body: some View {
-        LoginForm()
+        VStack(spacing: nil) {
+            Text(x.response)
+        }.onAppear(perform: {
+            LoadData()
+        })
+    }
+    
+    func LoadData() -> Void {
+        let route: URL = URL(string: "http://localhost:1995/Login")!
+        var request: URLRequest = URLRequest(url: route);
+        let requestBody: [String: Any] = ["empid": 40005, "password": "123"];
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type");
+        request.httpMethod = "POST";
+        request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            if let decodedResponse = try? JSONDecoder().decode(LoginResponseBody.self, from: data) {
+                DispatchQueue.main.async {
+                    self.x = decodedResponse;
+                }
+                
+                return;
+            }
+        }.resume();
     }
 }
 
