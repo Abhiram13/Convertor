@@ -13,6 +13,7 @@
 		833BAAC926EE6ACC00084A7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 833BAAC826EE6ACC00084A7F /* Preview Assets.xcassets */; };
 		833BAACB26EE6ACC00084A7F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833BAACA26EE6ACC00084A7F /* Persistence.swift */; };
 		833BAACE26EE6ACC00084A7F /* Science.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 833BAACC26EE6ACC00084A7F /* Science.xcdatamodeld */; };
+		83CCC06726F244B700973867 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CCC06626F244B700973867 /* Home.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		833BAACA26EE6ACC00084A7F /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		833BAACD26EE6ACC00084A7F /* Science.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Science.xcdatamodel; sourceTree = "<group>"; };
 		833BAACF26EE6ACC00084A7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83CCC06626F244B700973867 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				833BAAC126EE6AC800084A7F /* ScienceApp.swift */,
 				833BAAC326EE6AC800084A7F /* ContentView.swift */,
+				83CCC06626F244B700973867 /* Home.swift */,
 				833BAAC526EE6ACC00084A7F /* Assets.xcassets */,
 				833BAACA26EE6ACC00084A7F /* Persistence.swift */,
 				833BAACF26EE6ACC00084A7F /* Info.plist */,
@@ -146,6 +149,7 @@
 			files = (
 				833BAACB26EE6ACC00084A7F /* Persistence.swift in Sources */,
 				833BAAC426EE6AC800084A7F /* ContentView.swift in Sources */,
+				83CCC06726F244B700973867 /* Home.swift in Sources */,
 				833BAACE26EE6ACC00084A7F /* Science.xcdatamodeld in Sources */,
 				833BAAC226EE6AC800084A7F /* ScienceApp.swift in Sources */,
 			);
