@@ -99,7 +99,7 @@ struct ContentView: View {
     func LoadData() -> Void {
         let route: URL = URL(string: "http://localhost:1995/Login")!
         var request: URLRequest = URLRequest(url: route);
-        let requestBody: [String: Any] = ["empid": 40005, "password": "123"];
+        let requestBody: [String: Any?] = ["empid": Int(empid), "password": String(password)];
         request.setValue("application/json", forHTTPHeaderField: "Content-Type");
         request.httpMethod = "POST";
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted)
