@@ -24,39 +24,59 @@ struct ContentView: View {
                Text("")
             }
          } else {
-            VStack(alignment: .center, spacing: nil) {
+            VStack {
                Text("Welcome")
                   .bold()
-                  .font(.system(size: 20))
+                  .font(.system(size: 30))
                   .foregroundColor(.black)
-               TextField("Employee Id", text: $empid)
-                  .keyboardType(.numberPad)
-                  .frame(width: screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                  .border((colorScheme == .dark ? Color.white : Color.black), width: 1)
-                  .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                  .multilineTextAlignment(.center)
-               
-               TextField("Password", text: $password)
-                  .keyboardType(.namePhonePad)
-                  .frame(width: screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                  .border((colorScheme == .dark ? Color.white : Color.black), width: 1)
-                  .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                  .multilineTextAlignment(.center)
-               
-               Button(action: LoadData) {
-                  Text("Login")
-                     .foregroundColor(.white)
-                     .frame(width: 100, height: 35)
+               VStack {
+                  TextField("Employee Id", text: $empid)
+                     .keyboardType(.numberPad)
+                     .frame(width: screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                     .border((colorScheme == .dark ? Color.white : Color.black), width: 1)
+                     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                     .multilineTextAlignment(.center)
+                  
+                  TextField("Password", text: $password)
+                     .keyboardType(.namePhonePad)
+                     .frame(width: screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                     .border((colorScheme == .dark ? Color.white : Color.black), width: 1)
+                     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                     .multilineTextAlignment(.center)
+                  
+                  Button(action: LoadData) {
+                     Text("Login")
+                        .foregroundColor(.white)
+                        .frame(width: 100, height: 35)
+                  }
+                  .background(Color.blue)
+                  .cornerRadius(8.0)
+                  .alert(isPresented: $alert) {
+                     Alert(title: Text(apiResponse.response))
+                  }
                }
-               .background(Color.blue)
-               .cornerRadius(8.0)
-               .alert(isPresented: $alert) {
-                  Alert(title: Text(apiResponse.response))
-               }
-            }.position(x: screenWidth - (screenWidth/2), y: 10)
+            }.frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .topLeading)
+            .background(Color(.green))
+            .ignoresSafeArea(.all)
          }
-      }.navigationTitle("Login")
+      }
    }
+   
+   //   var body: some View {
+   //      NavigationView {
+   //         if (status) {
+   //            NavigationLink(destination: Home(), isActive: self.$status) {
+   //               Text("")
+   //            }
+   //         } else {
+   //            VStack {
+   ////
+   //            }
+   //            .background(Color(.blue))
+   //            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: .infinity, alignment: .topLeading)
+   //         }
+   //      }.navigationTitle("Login")
+   //   }
    
    func LoadData() -> Void {
       let route: URL = URL(string: "http://localhost:1995/Login")!
