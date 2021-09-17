@@ -59,24 +59,8 @@ struct ContentView: View {
             .background(Color(.green))
             .ignoresSafeArea(.all)
          }
-      }
+      }.navigationTitle("Login")
    }
-   
-   //   var body: some View {
-   //      NavigationView {
-   //         if (status) {
-   //            NavigationLink(destination: Home(), isActive: self.$status) {
-   //               Text("")
-   //            }
-   //         } else {
-   //            VStack {
-   ////
-   //            }
-   //            .background(Color(.blue))
-   //            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: .infinity, alignment: .topLeading)
-   //         }
-   //      }.navigationTitle("Login")
-   //   }
    
    func LoadData() -> Void {
       let route: URL = URL(string: "http://localhost:1995/Login")!
