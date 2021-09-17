@@ -14,8 +14,9 @@ struct ContentView: View {
    @State private var alert = false;
    @State private var status = false;
    private let local: UserDefaults = UserDefaults.standard;
-   private let screenWidth: CGFloat = UIScreen.main.bounds.width;
-   private let screenHeight: CGFloat = UIScreen.main.bounds.height;
+   private static let screenWidth: CGFloat = UIScreen.main.bounds.width;
+   private static let screenHeight: CGFloat = UIScreen.main.bounds.height;
+   private static var halfWidth: CGFloat = ContentView.screenWidth - (ContentView.screenWidth/2);
    
    var body: some View {
       NavigationView {
@@ -24,22 +25,30 @@ struct ContentView: View {
                Text("")
             }
          } else {
-            VStack {
-               Text("Welcome")
-                  .bold()
-                  .font(.system(size: 30))
-                  .foregroundColor(.black)
-               VStack {
+            VStack
+            {
+               VStack
+               {
+                  Text("Welcome")
+                     .bold()
+                     .font(.system(size: 30))
+                     .foregroundColor(.black)
+//                     .background(Color(.blue))
+               }
+               .frame(maxWidth: ContentView.screenWidth, maxHeight: 150)
+               .background(Color.red)
+               VStack
+               {
                   TextField("Employee Id", text: $empid)
                      .keyboardType(.numberPad)
-                     .frame(width: screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                     .frame(width: ContentView.screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                      .border((colorScheme == .dark ? Color.white : Color.black), width: 1)
                      .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                      .multilineTextAlignment(.center)
                   
                   TextField("Password", text: $password)
                      .keyboardType(.namePhonePad)
-                     .frame(width: screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                     .frame(width: ContentView.screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                      .border((colorScheme == .dark ? Color.white : Color.black), width: 1)
                      .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                      .multilineTextAlignment(.center)
@@ -55,7 +64,8 @@ struct ContentView: View {
                      Alert(title: Text(apiResponse.response))
                   }
                }
-            }.frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .topLeading)
+            }
+            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
             .background(Color(.green))
             .ignoresSafeArea(.all)
          }
