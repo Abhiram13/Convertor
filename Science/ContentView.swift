@@ -6,6 +6,71 @@ struct LoginResponseBody: Codable {
    var response: String = "";
 }
 
+struct WelcomeView: View {
+   private let screenWidth: CGFloat = UIScreen.main.bounds.width;
+   private let screenHeight: CGFloat = UIScreen.main.bounds.height;
+   
+   var body: some View {
+      VStack {
+         Text("Welcome")
+            .bold()
+            .font(.system(size: 30))
+            .foregroundColor(.black)
+      }
+      .frame(maxWidth: screenWidth, maxHeight: 150)
+      .background(Color.red)
+   }
+}
+
+struct FormView: View {
+   @Environment(\.colorScheme) var colorScheme
+   @Binding var empid: String;
+   @Binding var password: String;
+   @Binding var alert: Bool;
+   @Binding var apiResponse: LoginResponseBody;
+   private let screenWidth: CGFloat = UIScreen.main.bounds.width;
+   private let screenHeight: CGFloat = UIScreen.main.bounds.height;
+   var load: () -> Void;
+   
+   init(loadData: @escaping () -> Void, id: Binding<String>, passWord: Binding<String>, Alert: Binding<Bool>, Response: Binding<LoginResponseBody>) {
+      self.load = loadData;
+      self._empid = id;
+      self._password = passWord;
+      self._alert = Alert;
+      self._apiResponse = Response;
+   }
+   
+   var body: some View {
+      VStack {
+         TextField("Employee Id", text: $empid)
+            .keyboardType(.numberPad)
+            .frame(width: screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            .border((colorScheme == .dark ? Color.white : Color.black), width: 1)
+            .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+            .multilineTextAlignment(.center)
+         
+         TextField("Password", text: $password)
+            .keyboardType(.namePhonePad)
+            .frame(width: screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            .border((colorScheme == .dark ? Color.white : Color.black), width: 1)
+            .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+            .multilineTextAlignment(.center)
+         
+         Button(action: self.load) {
+            Text("Login")
+               .foregroundColor(.white)
+               .frame(width: 100, height: 35)
+         }
+         .background(Color.blue)
+         .cornerRadius(8.0)
+         .alert(isPresented: $alert) {
+            Alert(title: Text(apiResponse.response))
+         }
+      }
+      .background(Color.gray)
+   }
+}
+
 struct ContentView: View {
    @Environment(\.colorScheme) var colorScheme
    @State private var apiResponse: LoginResponseBody = LoginResponseBody();
@@ -25,45 +90,9 @@ struct ContentView: View {
                Text("")
             }
          } else {
-            VStack
-            {
-               VStack
-               {
-                  Text("Welcome")
-                     .bold()
-                     .font(.system(size: 30))
-                     .foregroundColor(.black)
-//                     .background(Color(.blue))
-               }
-               .frame(maxWidth: ContentView.screenWidth, maxHeight: 150)
-               .background(Color.red)
-               VStack
-               {
-                  TextField("Employee Id", text: $empid)
-                     .keyboardType(.numberPad)
-                     .frame(width: ContentView.screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                     .border((colorScheme == .dark ? Color.white : Color.black), width: 1)
-                     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                     .multilineTextAlignment(.center)
-                  
-                  TextField("Password", text: $password)
-                     .keyboardType(.namePhonePad)
-                     .frame(width: ContentView.screenWidth - 50, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                     .border((colorScheme == .dark ? Color.white : Color.black), width: 1)
-                     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                     .multilineTextAlignment(.center)
-                  
-                  Button(action: LoadData) {
-                     Text("Login")
-                        .foregroundColor(.white)
-                        .frame(width: 100, height: 35)
-                  }
-                  .background(Color.blue)
-                  .cornerRadius(8.0)
-                  .alert(isPresented: $alert) {
-                     Alert(title: Text(apiResponse.response))
-                  }
-               }
+            VStack {
+               WelcomeView()
+               FormView(loadData: LoadData, id: $empid, passWord: $password, Alert: $alert, Response: $apiResponse)
             }
             .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
             .background(Color(.green))
