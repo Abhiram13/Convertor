@@ -22,8 +22,7 @@ struct WelcomeView: View {
             .foregroundColor(.black)
       }
       .frame(maxWidth: screenWidth - 40, maxHeight: 100, alignment: .leading)
-//      .background(Color.red)
-      .padding(.top, 100)
+      .padding(.top, 130)
       .padding(.horizontal, 50)
    }
 }
@@ -73,8 +72,7 @@ struct FormView: View {
             Alert(title: Text(apiResponse.response))
          }
       }
-      .background(Color.gray)
-      .padding(.top, 100)
+      .padding(.top, 150)
    }
 }
 
@@ -99,7 +97,6 @@ struct ContentView: View {
                FormView(loadData: LoadData, id: $empid, passWord: $password, Alert: $alert, Response: $apiResponse)
             }
             .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .topLeading)
-            .background(Color(.green))
             .ignoresSafeArea(.all)
          }
       }.navigationTitle("Login")
