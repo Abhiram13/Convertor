@@ -81,13 +81,15 @@ struct ContentView: View {
    @State private var apiResponse: LoginResponseBody = LoginResponseBody();
    @State private var empid = "";
    @State private var password = "";
+   @State private var token = "";
    @State private var alert = false;
-   @State private var status = false;
+   @State private var status = true;
+   @State private var statusCode = 200;
    private let local: UserDefaults = UserDefaults.standard;
    
    var body: some View {
       NavigationView {
-         if (status) {
+         if token != "" && statusCode == 200 {
             NavigationLink(destination: Home(), isActive: self.$status) {
                Text("")
             }
@@ -95,11 +97,18 @@ struct ContentView: View {
             VStack {
                WelcomeView()
                FormView(loadData: LoadData, id: $empid, passWord: $password, Alert: $alert, Response: $apiResponse)
+               Text(token)
             }
             .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .topLeading)
             .ignoresSafeArea(.all)
          }
       }.navigationTitle("Login")
+      .onAppear(perform: self.LoadToken)
+   }
+   
+   func LoadToken() -> Void {
+      let storage: UserDefaults = UserDefaults.standard;
+      self.token = storage.string(forKey: "token")!;
    }
    
    func LoadData() -> Void {
@@ -120,7 +129,8 @@ struct ContentView: View {
             DispatchQueue.main.async {
                self.apiResponse = decodedResponse;
                self.alert = true;
-               self.status = decodedResponse.status == 200 ? true : false;
+               self.token = decodedResponse.response;
+               self.statusCode = decodedResponse.status!;
                local.set(decodedResponse.response, forKey: "token");
             }
             return;
