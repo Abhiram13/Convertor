@@ -11,14 +11,20 @@ struct WelcomeView: View {
    private let screenHeight: CGFloat = UIScreen.main.bounds.height;
    
    var body: some View {
-      VStack {
-         Text("Welcome")
-            .bold()
-            .font(.system(size: 30))
+      VStack(alignment: .leading, spacing: 0) {
+         Text("Welcome to")
+            .font(.system(size: 20))
+            .foregroundColor(.black)
+         
+         Text("CRM")
+            .font(.system(size: 80))
+            .fontWeight(.heavy)
             .foregroundColor(.black)
       }
-      .frame(maxWidth: screenWidth, maxHeight: 150)
-      .background(Color.red)
+      .frame(maxWidth: screenWidth - 40, maxHeight: 100, alignment: .leading)
+//      .background(Color.red)
+      .padding(.top, 100)
+      .padding(.horizontal, 50)
    }
 }
 
@@ -68,6 +74,7 @@ struct FormView: View {
          }
       }
       .background(Color.gray)
+      .padding(.top, 100)
    }
 }
 
@@ -79,9 +86,6 @@ struct ContentView: View {
    @State private var alert = false;
    @State private var status = false;
    private let local: UserDefaults = UserDefaults.standard;
-   private static let screenWidth: CGFloat = UIScreen.main.bounds.width;
-   private static let screenHeight: CGFloat = UIScreen.main.bounds.height;
-   private static var halfWidth: CGFloat = ContentView.screenWidth - (ContentView.screenWidth/2);
    
    var body: some View {
       NavigationView {
@@ -94,7 +98,7 @@ struct ContentView: View {
                WelcomeView()
                FormView(loadData: LoadData, id: $empid, passWord: $password, Alert: $alert, Response: $apiResponse)
             }
-            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .topLeading)
             .background(Color(.green))
             .ignoresSafeArea(.all)
          }
