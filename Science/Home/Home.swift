@@ -4,7 +4,7 @@ import CoreData
 
 struct Home: View {
    @State private var token = "";
-   @State var menuOpen: Bool = false
+   @State var menuOpen: Bool = true
    
    var body: some View {
       ZStack {
@@ -15,8 +15,9 @@ struct Home: View {
                Text("Open")
             })
          }
-         SideMenu(width: 270, isOpen: self.menuOpen, menuClose: self.openMenu)
-      }
+         SideMenu(width: 350, isOpen: self.menuOpen, menuClose: true)
+      }.background(Color(.yellow))
+      .ignoresSafeArea(.all)
    }
    
    func openMenu() {
@@ -26,5 +27,14 @@ struct Home: View {
    func LoadToken() -> Void {
       let storage: UserDefaults = UserDefaults.standard;
       self.token = storage.string(forKey: "token")!;
+   }
+}
+
+struct Home_Preview: PreviewProvider {
+   static var previews: some View {
+      Home()
+         .environment(\.sizeCategory, .medium)
+         .previewLayout(.device)
+         .previewDevice("iPhone 11");
    }
 }
