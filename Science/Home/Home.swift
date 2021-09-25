@@ -17,7 +17,6 @@ struct Home: View {
          }
          SideMenu(width: 350, isOpen: self.menuOpen, menuClose: self.openMenu)
       }
-//      .background(Color(.yellow))
       .ignoresSafeArea(.all)
    }
    

@@ -14,15 +14,15 @@ struct SideMenu: View {
          }
          .background(Color.gray.opacity(0.3))
          .opacity(self.isOpen ? 1.0 : 0.0)
-         .animation(Animation.easeIn.delay(0.25))
+         .animation(Animation.easeIn.delay(0.05))
          .onTapGesture {
             self.menuClose()
          }
          
          HStack {
             MenuList()
-               .frame(width: 300, height: screenHeight, alignment: .center)
-               .background(Color.orange)
+               .frame(width: 300, height: screenHeight)
+               .background(Color.white)
                .offset(x: self.isOpen ? 0 : -self.width)
                .animation(.default)
                .ignoresSafeArea(.all)
