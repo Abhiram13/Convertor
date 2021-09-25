@@ -4,7 +4,7 @@ import CoreData
 
 struct Home: View {
    @State private var token = "";
-   @State var menuOpen: Bool = true
+   @State var menuOpen: Bool = false;
    
    var body: some View {
       ZStack {
@@ -15,8 +15,9 @@ struct Home: View {
                Text("Open")
             })
          }
-         SideMenu(width: 350, isOpen: self.menuOpen, menuClose: true)
-      }.background(Color(.yellow))
+         SideMenu(width: 350, isOpen: self.menuOpen, menuClose: self.openMenu)
+      }
+//      .background(Color(.yellow))
       .ignoresSafeArea(.all)
    }
    
