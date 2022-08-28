@@ -89,21 +89,22 @@ struct ContentView: View {
    
    var body: some View {
       NavigationView {
-         if token != "" && statusCode == 200 {
-            NavigationLink(destination: Home(), isActive: self.$status) {
-               Text("")
-            }
-         } else {
-            VStack {
-               WelcomeView()
-               FormView(loadData: LoadData, id: $empid, passWord: $password, Alert: $alert, Response: $apiResponse)
-               Text(token)
-            }
-            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .topLeading)
-            .ignoresSafeArea(.all)
-         }
+          NavigationLink(destination: Home(), isActive: self.$status) {
+              Text("")
+          }
+//         if token != "" && statusCode == 200 {
+//
+//         } else {
+//            VStack {
+//               WelcomeView()
+//               FormView(loadData: LoadData, id: $empid, passWord: $password, Alert: $alert, Response: $apiResponse)
+//               Text(token)
+//            }
+//            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .topLeading)
+//            .ignoresSafeArea(.all)
+//         }
       }.navigationTitle("Login")
-      .onAppear(perform: self.LoadToken)
+//      .onAppear(perform: self.LoadToken)
    }
    
    func LoadToken() -> Void {
