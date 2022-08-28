@@ -10,7 +10,7 @@ struct SideMenu: View {
    var body: some View {
       ZStack {
          GeometryReader { _ in
-            EmptyView()             
+            EmptyView()
          }
          .background(Color.gray.opacity(0.3))
          .opacity(self.isOpen ? 1.0 : 0.0)
@@ -21,7 +21,7 @@ struct SideMenu: View {
          
          HStack {
             MenuList()
-               .frame(width: 300, height: 100)
+               .frame(width: 300, height: screenHeight)
                .background(Color.white)
                .offset(x: self.isOpen ? 0 : -self.width)
                .animation(.default)
